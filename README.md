@@ -7,31 +7,31 @@
 - *Hguen Hyu*
 - *Kuzmin Maxim*
 ## Table of contents 📌
-1. [Summary](##Summary)
-2. [Stakeholders](##Stakeholders)
-3. [Features](##Features)
-4. [Constraints](##Constraints)
-5. [Implementation rules](<##Implementation rules>)
-6. [Non-functional requirements](<##Non-functional requirements>)
+1. [Summary](##summary)
+2. [Stakeholders](##stakeholders)
+3. [Features](##features)
+4. [Constraints](##constraints)
+5. [Implementation rules](<##implementation-rules>)
+6. [Non-functional requirements](<##non-functional-requirements>)
 ## Summary
 >*This project focuses on developing a complex and large-scale ETL (Extract, Transform, Load) service aimed at cleaning and securing private data. The service will extract data from the company's internal systems, then clean, consolidate, anonymize, and transform the data before loading it into a new version of a data module. These data modules, stored on S3 or in a relational database management system (RDBMS), are described by metadata compatible with json-ld, a data gathering protocol, and versioned data. After the ETL process is complete, the data modules can be utilized by machine learning applications deployed on the framework. Ensuring data quality and accessibility is crucial for the applications operating within this framework.*
 ## Stakeholders
 ###### Customer
-- ==End Users:== Individuals or organizations using the processed data modules for machine learning applications and other purposes. They require secure, privacy-protected, and high-quality data.
+- **End Users:** Individuals or organizations using the processed data modules for machine learning applications and other purposes. They require secure, privacy-protected, and high-quality data.
 ###### User
-- ==Data Scientists:== Use cleaned and anonymized data to perform analysis and build machine learning models. They need accurate and relevant data for analysis.
-- ==Business Analysts:== Utilize processed data to make strategic decisions. They demand reliable data that meets security standards.
+- **Data Scientists:** Use cleaned and anonymized data to perform analysis and build machine learning models. They need accurate and relevant data for analysis.
+- **Business Analysts:** Utilize processed data to make strategic decisions. They demand reliable data that meets security standards.
 ###### Funder
-- ==Management:== Manage and provide financial resources for the project, while also overseeing the progress and effectiveness of the ETL service implementation.
+- **Management:** Manage and provide financial resources for the project, while also overseeing the progress and effectiveness of the ETL service implementation.
 ###### Team
-- ==Data Engineers:== Design, implement, and maintain ETL processes. They need a robust, complex service that easily integrates with existing systems.
-- ==Data Security Specialists:== Ensure that the ETL service complies with security and privacy regulations. They are responsible for protecting data throughout the processing stages.
+- **Data Engineers:** Design, implement, and maintain ETL processes. They need a robust, complex service that easily integrates with existing systems.
+- **Data Security Specialists:** Ensure that the ETL service complies with security and privacy regulations. They are responsible for protecting data throughout the processing stages.
 ###### Management
-- ==Legal and Compliance Teams:== Ensure that the project complies with data privacy laws and the company's internal policies.
+- **Legal and Compliance Teams:** Ensure that the project complies with data privacy laws and the company's internal policies.
 ###### Government
-- ==Government:== Monitor compliance with legal regulations on privacy and data security (such as GDPR, CCPA) during the implementation of the ETL service.
+- **Government:** Monitor compliance with legal regulations on privacy and data security (such as GDPR, CCPA) during the implementation of the ETL service.
 ###### Society
-- ==Society:== Benefits from the protection of private data and individual rights, ensuring that services and technologies develop in line with ethical and general security standards.
+- **Society:** Benefits from the protection of private data and individual rights, ensuring that services and technologies develop in line with ethical and general security standards.
 ## Features
 
 1. The service should be able to work with tables. The tables will contain columns, which correspond to names for a particular class of values and have a data type provided, and records, which are collections of (possibly empty) values matched to columns. A column is always mapped to a table, so that columns with the same name in different tables are always considered different columns.
@@ -44,14 +44,14 @@
 5. The collection protocol in the metadata lists scripts for all tables mentioned in the metadata. Several scripts can be listed for the same table name, in this case the service will merge the data from different sources into one entity according to the rules specified in the metadata. The scripts should return the data they retrieved in the JSON format.
 6. The data module should contain a data upload script, which will be executed after the data is processed. It should either work in a way that the collection protocol specified in the data module retrieves the new processed data after the upload script completes or rewrite the collection protocol of the data module so that the new collection protocol works with the uploaded data. The data upload script should also update the version part of the data module.
 ## Constraints
-1. ==Data storage:== All data must be stored in a relational database management system (RDBMS) (PostgreSQL).
-2. ==Null value handling:== Each data field must have a predetermined strategy for handling null values as specified in the metadata.
-3. ==Error handling:== A strategy for error handling should be in place for each stage of the process, including data extraction, transformation, and loading.
-4. ==Confidential data anonymization:== Confidential data should be anonymized.
-5. ==Unrecoverable anonymization:== The anonymization process should be unrecoverable to ensure protection of confidential data.
-6. ==Logging of operations:== All operations should be logged for audit purposes.
-7. ==Service architecture modularity and scalability:== The architecture should be modular and scalable without requiring a full system overhaul.
-8. ==Integration with corporate systems:== The service should support integration with other corporate systems without requiring changes to their architectures.
+1. **Data storage:** All data must be stored in a relational database management system (RDBMS) (PostgreSQL).
+2. **Null value handling:** Each data field must have a predetermined strategy for handling null values as specified in the metadata.
+3. **Error handling:** A strategy for error handling should be in place for each stage of the process, including data extraction, transformation, and loading.
+4. **Confidential data anonymization:** Confidential data should be anonymized.
+5. **Unrecoverable anonymization:** The anonymization process should be unrecoverable to ensure protection of confidential data.
+6. **Logging of operations:** All operations should be logged for audit purposes.
+7. **Service architecture modularity and scalability:** The architecture should be modular and scalable without requiring a full system overhaul.
+8. **Integration with corporate systems:** The service should support integration with other corporate systems without requiring changes to their architectures.
 ## Implementation rules
 ###### Documentation
 - When the Contractor designs a data module of the service, he documents it's logic in corporate knowledge base of the Customer
