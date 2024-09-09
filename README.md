@@ -7,12 +7,12 @@
 - *Hguen Hyu*
 - *Kuzmin Maxim*
 ## Table of contents 📌
-1. [Summary](##summary)
-2. [Stakeholders](##stakeholders)
-3. [Features](##features)
-4. [Constraints](##constraints)
-5. [Implementation rules](<##implementation-rules>)
-6. [Non-functional requirements](<##non-functional-requirements>)
+1. [Summary](#summary)
+2. [Stakeholders](#stakeholders)
+3. [Features](#features)
+4. [Constraints](#constraints)
+5. [Implementation rules](<#implementation-rules>)
+6. [Non-functional requirements](<#non-functional-requirements>)
 ## Summary
 >*This project focuses on developing a complex and large-scale ETL (Extract, Transform, Load) service aimed at cleaning and securing private data. The service will extract data from the company's internal systems, then clean, consolidate, anonymize, and transform the data before loading it into a new version of a data module. These data modules, stored on S3 or in a relational database management system (RDBMS), are described by metadata compatible with json-ld, a data gathering protocol, and versioned data. After the ETL process is complete, the data modules can be utilized by machine learning applications deployed on the framework. Ensuring data quality and accessibility is crucial for the applications operating within this framework.*
 ## Stakeholders
