@@ -58,18 +58,17 @@
 	- Metric: Each data module has at least 50 words of description of it's logic
 ###### Security
 - When the Contractor designs a data module of the service, he does not hardcode credentials in source code and uses corporate secrets storage instead
-	- Metric: All credentials for data sources and APIs are stored in a certain secrets storage
+- GitHub Secrets must be supported as a secret storage option
 ###### Scalability
 - The service must have an opportunity to be connected to new data sources or to be expanded with new modules
-	- Metric: The service has a common class for similar data sources and a template for new modules
+- The service must have a common class for similar data sources and a template for new modules
 ###### Maintainability
  - When the Contractor designs a data module of the service, he implements comprehensive error handling and logging mechanisms.
 	 - Metric: The service stores logs for the last 30 days.
 ###### Data quality
 - When the Contractor designs a data module of the service, he implements tests for possible data loss, or data duplicating, or empty values.
 - The service must ensure that data from various data sources have a commot data format.
-- The output of the service must have always the same data format.
-	- Metric: The service outputs JSON-like objects.
+- The service outputs JSON-like objects.
 ###### Reliability
 - The Contractor must use Russian or open-source infrastructure and tools for the service developing.
 - The service must always deliver reliable and up-to-date data.
