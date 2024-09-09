@@ -43,15 +43,13 @@
 3. All data processed by the service will be anonymized using the well-known generalization, suppression, anatomization, permutation, and perturbation operations.
 4. The collection protocol in the metadata lists scripts for all tables mentioned in the metadata. Several scripts can be listed for the same table name, in this case the service will merge the data from different sources into one entity according to the rules specified in the metadata. The scripts should return the data they retrieved in the JSON format.
 5. The data module should contain a data upload script, which will be executed after the data is processed. It should either work in a way that the collection protocol specified in the data module retrieves the new processed data after the upload script completes or rewrite the collection protocol of the data module so that the new collection protocol works with the uploaded data. The data upload script should also update the version part of the data module.
+6. All operations should be logged for audit purposes.
+
 ## Constraints
 1. **Data storage:** All data must be stored in a relational database management system (RDBMS) (PostgreSQL).
-2. **Null value handling:** Each data field must have a predetermined strategy for handling null values as specified in the metadata.
-3. **Error handling:** A strategy for error handling should be in place for each stage of the process, including data extraction, transformation, and loading.
-4. **Confidential data anonymization:** Confidential data should be anonymized.
-5. **Unrecoverable anonymization:** The anonymization process should be unrecoverable to ensure protection of confidential data.
-6. **Logging of operations:** All operations should be logged for audit purposes.
-7. **Service architecture modularity and scalability:** The architecture should be modular and scalable without requiring a full system overhaul.
-8. **Integration with corporate systems:** The service should support integration with other corporate systems without requiring changes to their architectures.
+2. **Unrecoverable anonymization:** The anonymization process should be unrecoverable to ensure protection of confidential data.
+3. **Service architecture modularity and scalability:** The architecture should be modular and scalable without requiring a full system overhaul.
+4. **Integration with corporate systems:** The service should support integration with other corporate systems without requiring changes to their architectures.
 ## Implementation rules
 ###### Documentation
 - When the Contractor designs a data module of the service, he documents it's logic in corporate knowledge base of the Customer
