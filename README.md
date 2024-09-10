@@ -6,6 +6,8 @@
 - *Zhulin Artem*
 - *Hguen Hyu*
 - *Kuzmin Maxim*
+## Project name
+ETL service for private data cleansing
 ## Table of contents 📌
 1. [Summary](#summary)
 2. [Stakeholders](#stakeholders)
