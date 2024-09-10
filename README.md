@@ -73,7 +73,7 @@
 	- Metric: The service is scheduled somewhere (Airflow) and runs every day.
 ## Non-functional requirements
 ###### Performance
-  - Service Description: The service must be able to process large volumes of data in a timely manner.
+  - Description: The service must be able to process large volumes of data in a timely manner.
 	  - Metric: The processing time for 1 TB of data should be less than 24 hours.
 ###### Scalability
   - Description: The service should support both horizontal and vertical scaling to accommodate increasing data volumes.
