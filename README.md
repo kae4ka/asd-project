@@ -4,7 +4,7 @@
 ## Team
 - *Tyukavkina Ekaterina*
 - *Zhulin Artem*
-- *Hguen Hyu*
+- *Nguyen Huy*
 - *Kuzmin Maxim*
 ## Project name
 ETL service for private data cleansing
