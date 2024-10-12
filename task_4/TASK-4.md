@@ -66,7 +66,7 @@ Example: let X = 10, Y = 40, M = 80, then N = 4*10 + 40 + 80 = 160
 
 ## Task - 6 - C
 
-**Solution: **
+**Solution:**
 The Cashier can replace the water tank in certain cases, such as:
 
 **Emergency mode:** When the Loader is unable to perform their task due to absence or other urgent reasons, the system can temporarily grant the Cashier permission to replace the water tank to ensure the vending machine continues to operate.
