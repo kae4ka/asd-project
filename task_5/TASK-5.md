@@ -1,3 +1,9 @@
+# Task - 5
+### Team: ETL-Express
+
+## Description:
+
+```
 Develop an analysis model for your product. Use features and stories from Task 3 as a source of requirements.
 
 Note: if you had “wrong scope” taint for the previous task you are strongly advised to talk to your professor.
@@ -16,9 +22,6 @@ Use “SIAOUT” criteria to classify them as attributes, classes, values. Extra
 Draw a draft class model from 2. and 3.
 
 Assign DDD stereotypes to classes from 4.
+```
 
-NOTE: steps 1 and 2 may come in parallel
 
-HINT: you may spot generalization at this step, use it sparingly, check that it is not coincidental / or specific to a particular context.
-
-NOTE: keep your repo up to date with task reports
