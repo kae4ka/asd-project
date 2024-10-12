@@ -24,4 +24,45 @@ Draw a draft class model from 2. and 3.
 Assign DDD stereotypes to classes from 4.
 ```
 
+## Use case - common diagram
 
+![](diagrams/UC-Common.png)
+
+## Use case - update script diagram
+
+![](diagrams/UC-Update%20Script.png)
+
+## Use case - update datamodule diagram
+
+![](diagrams/UC-Update%20datamodule.png)
+
+## Use case - get dataset verison diagram
+
+![](diagrams/UC-Create%20dataset.png)
+
+## Class candidates
+
+| Candidate             | Criteria | Stored information         | Operations  |
+| --------------------- | -------- | -------------------------- | ----------- |
+| Metadata              | SU       | Fields                     |             |
+| Data module           | SUT      | Version, Metadata, Scripts | Process     |
+| Processing script     | SAUT     | Script, Version            | Run, Update |
+| Extraction script     | SAUT     | Script, Version            | Run, Update |
+| Field rule            | SAUT     | Script, Version            | Run, Update |
+| Transformation script | SAUT     | Script, Version            | Run, Update |
+| Anonymization rule    | SAUT     | Script, Version            | Run, Update |
+| Uploading script      | SAUT     | Script, Version            | Run, Update |
+| Dataset               | S        | Data                       |             |
+| Data                  | ST       | Content                    |             |
+
+## Data flow diagram
+
+![](diagrams/DFD.png)
+
+## Entity-Relationship diagram
+
+![](diagrams/ERD.png)
+
+## ERD + DFD
+
+![](diagrams/ERD+DFD.png)
