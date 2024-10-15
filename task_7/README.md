@@ -25,150 +25,119 @@ Results of the task include
 
 ![](diagrams/1-base.png)
 
-### Description:
-
-TEXT
 
 ![](diagrams/1-a.png)
 
 ### Description:
 
-TEXT
+Added an association between two classes Salesman and Customer
 
 ![](diagrams/1-b.png)
 
 ### Description:
 
-TEXT
+Created a new cooperation, where the Intermediate Broker is connected to Salesman and Customer via the Sale cooperation from point A. When connected to Salesman, the Intermediate Broker acts as Customer, and when connected to Customer, it acts as Salesman.
 
 ![](diagrams/1-c.png)
 
 ### Description:
 
-TEXT
+A visualization of cooperation is presented in the form of a sequence diagram.
 
 ![](diagrams/1-d.png)
 
 ### Description:
 
-TEXT
+In the cooperation diagram from point B, we add an indication that there can be many brokers and they interact with several salesmen and customers.
 
 ## Task - 2
 
 ![](diagrams/2-base.png)
 
-### Description:
-
-TEXT
-
 ![](diagrams/2-a.png)
 
 ### Description:
 
-TEXT
+We change the parameter of the pressButton method from integer to enum, where enum consists of values ​​from 1 to 5. We also limit the number of executions in the cycle to a maximum of 5 repetitions.
 
 ![](diagrams/2-b.png)
 
 ### Description:
 
-TEXT
+Added pressDoors() before pressButton() is called.
 
 ![](diagrams/2-c.png)
 
 ### Description:
 
-TEXT
+For each iteration of the loop we attach ignore to the call to pressDoors
 
 ![](diagrams/2-d.png)
 
 ### Description:
 
-TEXT
+We impose a duration constraint on the execution of the iteration between the startMoving and floorReached operations
 
 ![](diagrams/2-e.png)
 
-### Description:
-
-TEXT
 
 ## Task - 4
 
 ![](diagrams/4-base.png)
 
-### Description:
-
-TEXT
-
 ![](diagrams/4-a.png)
 
 ### Description:
 
-TEXT
+Added new states TakeOff and Landing. The diagram is looped on the transition to Landing -> Boarding, because we have no other conditions under which the transitions by states will stop.
 
 ![](diagrams/4-b.png)
 
 ### Description:
 
-TEXT
+Updated TakeOff and Landing states to "do / radioComm" and "exit / freeRunway"
 
 ![](diagrams/4-c.png)
 
 ### Description:
 
-TEXT
+We have transformed InAir into a complex state by adding a substate that is nested and orthogonal, which specifies a subchart for dinner service. The subchart includes a check to determine if the flight is expected to last more than 3 hours. If so, passengers are offered a meal at any point during the flight.
+
 
 ![](diagrams/4-d.png)
 
 ### Description:
 
-TEXT
+Similar to point C, a new orthogonal region is added, where the transition by substates from Normal to Damaged is indicated. Since the condition does not specify what happens to the aircraft after damage, we assume that the statechart stops at this point and everything goes to the final state
 
 ![](diagrams/4-e.png)
 
-### Description:
-
-TEXT
 
 ![](diagrams/4-f.png)
 
-### Description:
-
-TEXT
 
 ![](diagrams/4-g.png)
-
-### Description:
-
-TEXT
 
 ## Task - 5
 
 ![](diagrams/5-base.png)
 
-### Description:
-
-TEXT
-
 ![](diagrams/5-a.png)
-
-### Description:
-
-TEXT
 
 ![](diagrams/5-b.png)
 
-### Description:
+### Desciption:
 
-TEXT
+Added a new transition from Closed to ActiveOpen and then to Established.
 
 ![](diagrams/5-c.png)
 
 ### Description:
 
-TEXT
+Added an additional transition from the PassiveClose state to the FinalState by the close event, from the SYN_RCVD state by the close event added a new transition to the ActiveClose state, in addition, a new transition from the ActiveOpen state to the Closed state by the close event was added
 
 ![](diagrams/5-d.png)
 
 ### Description:
 
-TEXT
+For transitions with effect, intermediate states were added, so the states SYN_RCVD / SYN + ACK were added on the transition from Listen to SYN_RCVD, SYN_RCVD / FIN on the transition from SYN_RCVD to ActiveClose, and PassieveClose / FIN on the transition from PassieveClose to FinalState
