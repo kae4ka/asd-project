@@ -41,15 +41,11 @@ Dmitry discovers an ETL service that automates data extraction, anonymization, a
 
 ## Story map
 
-![](/diagrams/story-map-fixed.png)
+![](diagrams/story-map-fixed.png)
 
 ## Use cases
 
-![](/diagrams/uc-fixed.png)
-
-## Use cases
-
-![](/diagrams/uc-fixed.png)
+![](diagrams/uc-fixed.png)
 
 
 ## Class candidates
@@ -98,23 +94,23 @@ Dmitry discovers an ETL service that automates data extraction, anonymization, a
 
 ## Class diagram
 
-![](/diagrams/class-diagram-fixed.png)
+![](diagrams/class-diagram-fixed.png)
 
 ## Detailed behavior - ETL Tasks & Scripts
 
-![](/diagrams/behavior-1.png)
+![](diagrams/behavior-1.png)
 
 ## Detailed behavior - Manage ETL-Task & Scripts
 
-![](/diagrams/behavior-3.png)
+![](diagrams/behavior-3.png)
 
 ## Detailed behavior - Data/Dataset
 
-![](/diagrams/behavior-2.png)
+![](diagrams/behavior-2.png)
 
 ## Detailed behavior - Process ETL-Task
 
-![](/diagrams/behavior-4.png)
+![](diagrams/behavior-4.png)
 
 
 
