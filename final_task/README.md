@@ -1,6 +1,9 @@
 # Final task
 ### Team: ETL-Express
 
+#### Video: https://drive.google.com/file/d/1FwQ2BEMlA1DKpPH4yymNLfvhr7kh-b3A/view?usp=sharing
+#### Presentation: https://docs.google.com/presentation/d/1ewT_DOh06Wi8leSqjzaXa0C4ov3-Z08INUbRzKAX2F0/edit?usp=sharing
+
 ## Personas
 
 ### Data engineer
