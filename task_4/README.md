@@ -46,7 +46,7 @@ Example: let X = 10, Y = 40, M = 80, then N = 4*10 + 40 + 80 = 160
 
 ## Task - 4
 
-![](diagrams/4.png)
+![](diagrams/4-fixed.png)
 
 ## Task - 5
 
