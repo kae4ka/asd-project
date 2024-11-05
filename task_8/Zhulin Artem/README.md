@@ -10,7 +10,7 @@ python3 main.py
 
 # KWIC
 
-This solution uses Pipes and filters approach.
+This solution uses **Pipes and filters approach**.
 
 ## Comparision with [Tyukavkina Ekaterina](https://github.com/kae4ka/asd-project/blob/main/task_8/Tyukavkina%20Ekaterina/kwic.ipynb) 
 
