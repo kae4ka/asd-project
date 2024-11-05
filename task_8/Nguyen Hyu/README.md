@@ -6,7 +6,7 @@
 
 ## KWIC
 
-Developed a solution for the Key Word in Context problem utilizing the "Abstract Data Types" architectural approach.
+Developed a solution for the Key Word in Context problem utilizing the " Implicit Invocation (Event-Driven)" architectural approach.
 
 **Expected Input:**
 
@@ -29,3 +29,9 @@ Input size of the chessboard
 **Expected Result:**
 
 The program will output all solutions to the "8 Queens" problem.
+
+---
+
+## Comparision
+
+
