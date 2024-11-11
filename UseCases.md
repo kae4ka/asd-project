@@ -142,19 +142,3 @@
 2. System presents a searchable list of recorded actions.
 3. User selects specific entries to view details.
 4. System displays the action, timestamp, actor, and any relevant changes or results.
-
-
-### Use Case 9: Login
-**Description:** The system records all actions by users and the system itself, allowing users to review the history of changes and actions.
-
-- **Primary Actor:** User
-- **Goals:** Allow user to login into the system
-- **Pre-conditions:** User is not logged in the system.
-- **Post-conditions:** User is logged in the system.
-
-**Basic flow:**
-1. User navigates to the log section.
-2. User enters own credantials.
-3. System sends the user's creadantials to the external SSO.
-4. System receives the external SSO's answer
-4. User can use the system.
