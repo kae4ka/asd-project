@@ -1,6 +1,9 @@
 # Task - 9
 ### Team: ETL-Express
 
+## Slides : [presentation](https://docs.google.com/presentation/d/1N_BfB3H1M22V_IxG98htGKGl4fK0GzMEKOZ1GwkOQLA/edit?usp=sharing)
+## Report : [video](https://drive.google.com/file/d/1kB0MXK35mERQLR8OBgkMqVVkmT7naUKk/view?usp=sharing)
+
 ## Description:
 
 ```
