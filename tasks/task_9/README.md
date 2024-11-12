@@ -175,6 +175,8 @@ Report with slides
 
 ## Event storming
 
+![](diagrams/event-storming.png)
+
 ## Aggregate - Processing Script
 
 ![](diagrams/aggregate-processing-script.png)
