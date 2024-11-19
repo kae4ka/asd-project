@@ -63,12 +63,13 @@ Basic flow:
 
 **Basic flow:**
 1. User navigates to the script management section in the ETL service interface.
-2. System presents options to create a new script or edit an existing one.
-3. User selects the type of script they wish to create or modify.
-4. System displays relevant fields for defining or updating the script properties.
-5. User completes all required fields, specifying extraction details, transformation logic, anonymization parameters, or upload rules as needed.
-6. User saves the scripts configuration.
-7. System validates the input and saves the scripts in the database, confirming its readiness for integration into ETL task.
+2. System checks access to change etl tasks and scripts.
+3. System presents options to create a new script or edit an existing one.
+4. User selects the type of script they wish to create or modify.
+5. System displays relevant fields for defining or updating the script properties.
+6. User completes all required fields, specifying extraction details, transformation logic, anonymization parameters, or upload rules as needed.
+7. User saves the scripts configuration.
+8. System validates the input and saves the scripts in the database, confirming its readiness for integration into ETL task.
 
 ---
 
@@ -82,11 +83,12 @@ Basic flow:
 
 **Basic flow:**
 1. User selects the option to create a new ETL task or update an existing one.
-2. System presents a form to configure ETL task details.
-3. User provides the basic task configuration.
-4. User selects and attaches relevant scripts (Extraction script, Field Rules, Transformation scripts, Anonymization rules, Uploading script) from the list of available scripts.
-5. User finalizes and saves the ETL task.
-6. System validates the task setup, ensuring all necessary scripts are included, and saves the task configuration.
+2. System checks access to change etl tasks and scripts.
+3. System presents a form to configure ETL task details.
+4. User provides the basic task configuration.
+5. User selects and attaches relevant scripts (Extraction script, Field Rules, Transformation scripts, Anonymization rules, Uploading script) from the list of available scripts.
+6. User finalizes and saves the ETL task.
+7. System validates the task setup, ensuring all necessary scripts are included, and saves the task configuration.
 
 **Alternate path:**
 - **Missing Scripts:** If required scripts are not attached, the system prompts the user to complete the setup by attaching necessary scripts before saving.
@@ -104,18 +106,19 @@ Description: The user creates and configures connections to external datamodules
 
 Basic flow:
 1. User navigates to the "Manage External Datamodule Connections" section in the ETL service.
-2. System presents options to create a new connection or edit existing ones.
-3. User selects the option to create a new connection.
-4. System displays a form for defining the connection properties.
-5. User enters the required information:
+2. System checks access to change extDatamodule connection.
+3. System presents options to create a new connection or edit existing ones.
+4. User selects the option to create a new connection.
+5. System displays a form for defining the connection properties.
+6. User enters the required information:
    - Specifies the datamodule contract details.
    - Inputs the connection string.
    - Selects the type of connection (e.g., SQL, gRPC, API).
    - Assigns owners for the connection by selecting users or user groups.
-6. User saves the connection configuration.
-7. System validates the input and checks for any conflicts or errors.
-8. Upon successful validation, system saves the new connection in the database.
-9. System confirms the connection is ready for use and notifies the assigned owners.
+7. User saves the connection configuration.
+8. System validates the input and checks for any conflicts or errors.
+9. Upon successful validation, system saves the new connection in the database.
+10. System confirms the connection is ready for use and notifies the assigned owners.
 
 ---
 
@@ -150,16 +153,17 @@ Description: The owners of an external datamodule connection review and approve 
 
 Basic flow:
 1. Connection owner receives a notification of a pending access request.
-2. Owner navigates to the "Access Requests" section in the ETL service.
-3. System displays a list of pending access requests with requester information and reasons.
-4. Owner selects a request to review.
-5. System shows detailed information about the requester.
-6. Owner decides to approve or deny the request for the requester.
-7. Owner submits their decision.
-8. System updates the access permissions accordingly.
+2. System checks owner access to selected extDatamodule.
+3. Owner navigates to the "Access Requests" section in the ETL service.
+4. System displays a list of pending access requests with requester information and reasons.
+5. Owner selects a request to review.
+6. System shows detailed information about the requester.
+7. Owner decides to approve or deny the request for the requester.
+8. Owner submits their decision.
+9. System updates the access permissions accordingly.
    - If approved, the requester is granted access to the datamodule connection.
    - If denied, the requester is notified with the owner's decision.
-9. System sends a notification to the requester informing them of the decision.
+10. System sends a notification to the requester informing them of the decision.
 
 ---
 
@@ -173,10 +177,11 @@ Basic flow:
 
 **Basic flow:**
 1. System initiates the ETL task by executing the configured Extraction script to pull data from the specified data module.
-2. System applies Field Rules to clean and standardize data fields.
-3. System runs the Transformation script, performing data merging or other required transformations.
-4. System applies Anonymization rules, using designated methods to anonymize each data field.
-5. System saves the processed data in the Outbox database, pending user review and confirmation for upload.
+2. System checks access to manage etl-task.
+3. System applies Field Rules to clean and standardize data fields.
+4. System runs the Transformation script, performing data merging or other required transformations.
+5. System applies Anonymization rules, using designated methods to anonymize each data field.
+6. System saves the processed data in the Outbox database, pending user review and confirmation for upload.
 
 **Alternate path:**
 - **Processing Error:** If an error occurs at any stage, the system logs the error and informs user, and stopped executing.
@@ -193,9 +198,10 @@ Basic flow:
 
 **Basic flow:**
 1. User selects the option to stop or pause the ETL task.
-2. System pauses or canceles the ongoing ETL task.
-3. If the task is terminated, the system prompts the user to confirm the deletion of data in Outbox and any partially sent data in the destination service.
-4. User confirms, and the system clears Outbox and destination if necessary.
+2. System checks access to manage etl-task.
+3. System pauses or canceles the ongoing ETL task.
+4. If the task is terminated, the system prompts the user to confirm the deletion of data in Outbox and any partially sent data in the destination service.
+5. User confirms, and the system clears Outbox and destination if necessary.
 
 ---
 
@@ -226,9 +232,10 @@ Basic flow:
 
 **Basic flow:**
 1. User navigates to the Outbox section.
-2. System displays a list of prepared data entries.
-3. User selects a data entry to view details.
-4. System presents the details of the selected data.
+2. System checks access to manage data.
+3. System displays a list of prepared data entries.
+4. User selects a data entry to view details.
+5. System presents the details of the selected data.
 
 ---
 
@@ -242,24 +249,26 @@ Basic flow:
 
 **Basic flow:**
 1. User accesses the Outbox data management section.
-2. System presents options to add, edit, or delete data entries.
-3. User selects an action and modifies the data as needed.
-4. System validates changes and updates Outbox accordingly.
+2. System checks access to manage data.
+3. System presents options to add, edit, or delete data entries.
+4. User selects an action and modifies the data as needed.
+5. System validates changes and updates Outbox accordingly.
 
 ---
 
 ### Use Case: Upload Prepared Data
 **Description:** User decides to upload processed data from the Outbox to the destination. If no action is taken, data will be deleted automatically after a retention period.
 
-- **Primary Actor:** Data-Manager
+- **Primary Actor:** Task-Manager
 - **Goals:** Confirm and initiate data upload from the Outbox
 - **Pre-conditions:** Data is processed and available in the Outbox
 - **Post-conditions:** Data is either uploaded to the destination or deleted based on user action
 
 **Basic flow:**
 1. User reviews the data in the Outbox and selects the option to upload.
-2. System confirms the selection and initiates the upload process.
-3. Data is transferred to the destination, and system updates Outbox to indicate completion.
+2. System checks access to manage etl-task.
+3. System confirms the selection and initiates the upload process.
+4. Data is transferred to the destination, and system updates Outbox to indicate completion.
 
 ---
 
