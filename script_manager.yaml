@@ -1,0 +1,306 @@
+openapi: 3.0.0
+info:
+  title: ScriptManager API
+  version: '1.0'
+paths:
+  /create:
+    post:
+      summary: Создать новый скрипт
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScriptRequest'
+      responses:
+        '200':
+          description: Успешное создание скрипта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateScriptResponse'
+
+  /update:
+    put:
+      summary: Обновить существующий скрипт
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScriptRequest'
+      responses:
+        '200':
+          description: Успешное обновление скрипта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateScriptResponse'
+
+  /release:
+    put:
+      summary: Выпустить скрипт
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseScriptRequest'
+      responses:
+        '200':
+          description: Успешный выпуск скрипта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseScriptResponse'
+
+  /script:
+    get:
+      summary: Получить скрипт по идентификатору
+      parameters:
+        - name: script_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешное получение скрипта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetScriptResponse'
+
+  /scripts:
+    get:
+      summary: Получить все скрипты для задачи ETL
+      parameters:
+        - name: etl_task_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешное получение списка скриптов
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllScriptResponse'
+
+components:
+  schemas:
+    Empty:
+      type: object
+
+    Field:
+      type: object
+      properties:
+        ext_datamodule_id:
+          type: string
+        field_name:
+          type: string
+
+    FieldRule:
+      type: object
+      properties:
+        default_value:
+          type: string
+        min_value:
+          type: string
+        max_value:
+          type: string
+        field_type:
+          type: string
+          enum:
+            - Integer
+            - String
+            - Double
+        type:
+          type: string
+          enum:
+            - FillEmpty
+            - IgnoreEmpty
+            - RemoveEmpty
+            - FillOutOfRange
+            - IgnoreOutOfRange
+            - RemoveOutOfRange
+
+    AnonymizationRule:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Generalization
+            - Suppression
+            - Anatomization
+            - Permutation
+            - Pertubation
+
+    TransformationScript:
+      type: object
+      properties:
+        transformation_script:
+          type: string
+          nullable: true
+        type:
+          type: string
+          enum:
+            - Merge
+            - Update
+
+    Script:
+      type: object
+      properties:
+        id:
+          type: string
+        task_id:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        released:
+          type: boolean
+      required:
+        - id
+        - task_id
+        - fields
+        - released
+      oneOf:
+        - required:
+            - extractor
+          properties:
+            extractor:
+              $ref: '#/components/schemas/Empty'
+        - required:
+            - field_rule
+          properties:
+            field_rule:
+              $ref: '#/components/schemas/FieldRule'
+        - required:
+            - anonymization_rule
+          properties:
+            anonymization_rule:
+              $ref: '#/components/schemas/AnonymizationRule'
+        - required:
+            - transformer
+          properties:
+            transformer:
+              $ref: '#/components/schemas/TransformationScript'
+        - required:
+            - uploader
+          properties:
+            uploader:
+              $ref: '#/components/schemas/Empty'
+
+    CreateScriptRequest:
+      type: object
+      properties:
+        script:
+          $ref: '#/components/schemas/Script'
+      required:
+        - script
+
+    CreateScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    UpdateScriptRequest:
+      type: object
+      properties:
+        script_id:
+          type: string
+        fields_to_add:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        fields_to_remove:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+      required:
+        - script_id
+      oneOf:
+        - required:
+            - extractor
+          properties:
+            extractor:
+              $ref: '#/components/schemas/Empty'
+        - required:
+            - field_rule
+          properties:
+            field_rule:
+              $ref: '#/components/schemas/FieldRule'
+        - required:
+            - anonymization_rule
+          properties:
+            anonymization_rule:
+              $ref: '#/components/schemas/AnonymizationRule'
+        - required:
+            - transformer
+          properties:
+            transformer:
+              $ref: '#/components/schemas/TransformationScript'
+        - required:
+            - uploader
+          properties:
+            uploader:
+              $ref: '#/components/schemas/Empty'
+
+    UpdateScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    ReleaseScriptRequest:
+      type: object
+      properties:
+        script_id:
+          type: string
+      required:
+        - script_id
+
+    ReleaseScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    GetScriptRequest:
+      type: object
+      properties:
+        script_id:
+          type: string
+      required:
+        - script_id
+
+    GetScriptResponse:
+      type: object
+      properties:
+        script:
+          $ref: '#/components/schemas/Script'
+      required:
+        - script
+
+    GetAllScriptRequest:
+      type: object
+      properties:
+        etl_task_id:
+          type: string
+      required:
+        - etl_task_id
+
+    GetAllScriptResponse:
+      type: object
+      properties:
+        scripts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Script'
+      required:
+        - scripts

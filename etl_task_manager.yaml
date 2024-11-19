@@ -1,0 +1,451 @@
+openapi: 3.0.0
+info:
+  title: EtlTaskManager API
+  version: '1.0'
+paths:
+  /create:
+    post:
+      summary: Создать новую ETL задачу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '200':
+          description: Успешное создание задачи
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTaskResponse'
+                
+  /task:
+    get:
+      summary: Получить инфо ETL задачи
+      parameters:
+        - name: etl_task_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешное получение списка скриптов
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EtlTask'
+                
+  /tasks:
+    get:
+      summary: Получить все ETL задачи
+    
+      responses:
+        '200':
+          description: Успешное получение списка скриптов
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllETLTasks'
+
+  /update/script/extraction:
+    put:
+      summary: Обновить скрипт извлечения данных
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExtractionScriptRequest'
+      responses:
+        '200':
+          description: Скрипт извлечения успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateExtractionScriptResponse'
+
+  /update/script/field_rules:
+    put:
+      summary: Обновить правила полей
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFieldRulesRequest'
+      responses:
+        '200':
+          description: Правила полей успешно обновлены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateFieldRulesResponse'
+
+  /update/script/anomyziation:
+    put:
+      summary: Обновить правила анонимизации
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAnonymizationRulesRequest'
+      responses:
+        '200':
+          description: Правила анонимизации успешно обновлены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAnonymizationRulesResponse'
+
+  /update/script/transformation:
+    put:
+      summary: Обновить скрипты трансформации
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransformationScriptsRequest'
+      responses:
+        '200':
+          description: Скрипты трансформации успешно обновлены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateTransformationScriptsResponse'
+
+  /update/script/uploading:
+    put:
+      summary: Обновить скрипт загрузки данных
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUploadingScriptRequest'
+      responses:
+        '200':
+          description: Скрипт загрузки успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUploadingScriptResponse'
+
+  /release:
+    put:
+      summary: Выпустить задачу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseRequest'
+      responses:
+        '200':
+          description: Задача успешно выпущена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseResponse'
+
+  /start:
+    post:
+      summary: Запустить задачу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRequest'
+      responses:
+        '200':
+          description: Задача успешно запущена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartResponse'
+
+  /resume:
+    post:
+      summary: Возобновить задачу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeRequest'
+      responses:
+        '200':
+          description: Задача успешно возобновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeResponse'
+
+  /pause:
+    post:
+      summary: Приостановить задачу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PauseRequest'
+      responses:
+        '200':
+          description: Задача успешно приостановлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PauseResponse'
+
+  /stop:
+    post:
+      summary: Остановить задачу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopRequest'
+      responses:
+        '200':
+          description: Задача успешно остановлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopResponse'
+
+components:
+  schemas:
+    CreateTaskRequest:
+      type: object
+
+    CreateTaskResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    UpdateExtractionScriptRequest:
+      type: object
+      properties:
+        script_id:
+          type: string
+      required:
+        - script_id
+
+    UpdateExtractionScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    UpdateFieldRulesRequest:
+      type: object
+      properties:
+        rules_to_add:
+          type: array
+          items:
+            type: string
+        rules_to_remove:
+          type: array
+          items:
+            type: string
+
+    UpdateFieldRulesResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    UpdateAnonymizationRulesRequest:
+      type: object
+      properties:
+        rules_to_add:
+          type: array
+          items:
+            type: string
+        rules_to_remove:
+          type: array
+          items:
+            type: string
+
+    UpdateAnonymizationRulesResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    UpdateTransformationScriptsRequest:
+      type: object
+      properties:
+        scripts_to_add:
+          type: array
+          items:
+            type: string
+        scripts_to_remove:
+          type: array
+          items:
+            type: string
+
+    UpdateTransformationScriptsResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    UpdateUploadingScriptRequest:
+      type: object
+      properties:
+        script_id:
+          type: string
+      required:
+        - script_id
+
+    UpdateUploadingScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    ReleaseRequest:
+      type: object
+      properties:
+        task_id:
+          type: string
+      required:
+        - task_id
+
+    ReleaseResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    StartRequest:
+      type: object
+      properties:
+        task_id:
+          type: string
+      required:
+        - task_id
+
+    StartResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    ResumeRequest:
+      type: object
+      properties:
+        task_id:
+          type: string
+      required:
+        - task_id
+
+    ResumeResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    PauseRequest:
+      type: object
+      properties:
+        task_id:
+          type: string
+      required:
+        - task_id
+
+    PauseResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    StopRequest:
+      type: object
+      properties:
+        task_id:
+          type: string
+      required:
+        - task_id
+
+    StopResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+
+    EtlTask:
+      type: object
+      properties:
+        id:
+          type: string
+        released:
+          type: boolean
+        extraction_script:
+          type: string
+        field_rules:
+          type: array
+          items:
+            type: string
+        anonymization_rules:
+          type: array
+          items:
+            type: string
+        transformation_scripts:
+          type: array
+          items:
+            type: string
+        uploading_script:
+          type: string
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskRun'
+      required:
+        - id
+        - released
+
+    TaskRun:
+      type: object
+      properties:
+        id:
+          type: string
+        etl_task_id:
+          type: string
+        state:
+          $ref: '#/components/schemas/TaskRunState'
+        RunAt:
+          type: string
+          format: date-time
+        extracted_data_count:
+          type: integer
+          format: int64
+      required:
+        - id
+        - etl_task_id
+        - state
+
+    TaskRunState:
+      type: string
+      enum:
+        - Running
+        - Paused
+        - Stopped
+        
+    GetAllETLTasks:
+      type: object
+      properties:
+        scripts:
+          type: array
+          items:
+            $ref: '#/components/schemas/EtlTask'
+      required:
+        - scripts
