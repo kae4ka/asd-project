@@ -307,7 +307,7 @@ Basic flow:
 
 ## Aggregate - Components
 
-![](diagrams/components.png)
+![](diagrams/components-1.png)
 
 ## Tracebility
 
