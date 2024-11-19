@@ -191,7 +191,7 @@ Report with slides
 
 ## Aggregate - User
 
-![](diagrams/aggregate-user.png)
+![](diagrams/aggregate-user-1.png)
 
 ## Aggregate - Ext Datamodule
 
