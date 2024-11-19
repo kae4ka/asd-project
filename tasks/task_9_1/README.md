@@ -202,3 +202,13 @@ Report with slides
 
 ![](diagrams/components.png)
 
+## Tracebility
+
+| Microservice          | Resource               | Domain classes                                                                                                | Use cases                                                                                                 |
+|-----------------------|------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Script Manager        | Processing script Info | Processing script, extraction script, uploading script, field rule, anonymization rule, transformation script | Manage Scripts, Manage ETL Task, Process ETL Task                                                         |
+| ETL-Task Manager      | ETL-Task Info          | ETL-Task, Task Run                                                                                            | Manage ETL Task, Process ETL Task, Stop ETL Task, View Run History,                                       |
+| Data Manager          | Prepared data          | Data                                                                                                          | Process ETL Task, View prepared data, Upload prepared data, Manual managed prepared data                  |
+| ExtDataModule Manager | ExtDatamodule Info     | ExtDatamoduleConnection                                                                                       | Manage ExtDatamodule Connection, Get ExtDatamodule Access, Approve ExtDatamodule Access, Process ETL Task |
+| User Manager          | User acesses info      | User, ExtDatamoduleAccess                                                                                     | All use cases (require access)                                                                            |
+| Audit Logger          | Logs info              | Audit Log                                                                                                     | Audit                                                                                                     |
