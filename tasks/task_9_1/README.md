@@ -299,7 +299,7 @@ Basic flow:
 
 ## Aggregate - Data
 
-![](diagrams/aggregate-data.png)
+![](diagrams/aggregate-data-1.png)
 
 ## Aggregate - AuditLogs
 
