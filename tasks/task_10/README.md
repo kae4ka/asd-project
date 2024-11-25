@@ -1,8 +1,42 @@
-# ETL-Express 
+# Task - 10
+### Team: ETL-Express
 
-> ETL service that helps to deliver data from corporate systems to MLOps framework.
+## Slides : [presentation](https://docs.google.com/presentation/d/1LMIgKUPYfaI_VIouF69lw_bpRWjmuQm2QxERE4ZaCn0/edit?usp=sharing)
 
-## Use cases
+## Description:
+
+```
+NOTE: check that at least one member of a team has got an access to the Kubernetes cluster
+
+You are asked to develop detailed RESTful APIs for the microservices using Open API v3.
+
+Before starting with the task, review Task 9.1 and check that you have identified all the necessary interfaces and endpoints.
+
+What to do
+
+Go step-by-step with the updated scenarios from Task 9.1
+At each step identify which microservices are in use and add corresponding methods to the interface. Use OpenAPI to specify the interface.
+Prepare a detailed list of libraries and tools needed to implement the system. Apply evaluation criteria provided at the lectures.
+
+HINT: follow RESTful API design rules when developing interfaces
+
+NOTE: at least one primary use case per team member has to be elaborated.
+
+NOTE: you do not need to elaborate the domain model with the details of the interfaces, keep them in the Open API. This includes any value objects transferred through the API.
+
+HINT: do not forget about APIs to the reified processes
+
+Results of the task
+YAML files with Open API definitions for microservice interfaces
+A page on the repo with detailed technology analysis
+A report
+
+Here is a template for the report
+https://tiny.cc/asd-template-apidesign 
+
+```
+
+## Use-cases
 
 ![](diagrams/use-cases.png)
 
@@ -451,3 +485,17 @@
 5. **View Details:**
    1. System displays action details, including timestamp, actor, and changes.
    1. *(GetAuditLog - AuditLogger)*
+
+## Solution stack
+
+### Implementation
+
+1. API definition - **gRPC**
+1. Connection server for API - **python gunicorn**
+1. App framework - **Django**
+1. Serialization/state format - **protobuf (service) + json (db)**
+1. Database - **postgreSQL**
+1. Testing tools - **pytest**
+1. CI/CD pipeline - **Github Actions**
+1. Delivery method - **Docker**
+1. Monitoring - **Grafana**

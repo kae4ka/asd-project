@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: AuditLogger API
+  version: '1.0'
+paths:
+  /audit-log/{id}:
+    get:
+      summary: Get an audit log by ID
+      operationId: GetAuditLog
+      parameters:
+        - name: id
+          in: path
+          description: Audit log identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the audit log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAuditLogResponse'
+        '404':
+          description: Audit log not found
+  /audit-log:
+    post:
+      summary: Create a new audit log
+      operationId: CreateAuditLog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAuditLogRequest'
+      responses:
+        '201':
+          description: Audit log successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAuditLogResponse'
+  /audit-logs:
+    get:
+      summary: Retrieve a list of audit logs
+      operationId: ListAuditLogs
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            type: string
+          description: User identifier
+        - name: table_name
+          in: query
+          schema:
+            type: string
+          description: Table name
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: Start date
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: End date
+      responses:
+        '200':
+          description: Successfully retrieved the list of audit logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAuditLogsResponse'
+components:
+  schemas:
+    AuditLog:
+      type: object
+      required:
+        - id
+        - user_id
+        - table_name
+        - field_name
+        - prev_value
+        - new_value
+        - date_time
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        table_name:
+          type: string
+        field_name:
+          type: string
+        prev_value:
+          type: string
+        new_value:
+          type: string
+        date_time:
+          type: string
+          format: date-time
+    GetAuditLogResponse:
+      type: object
+      required:
+        - audit_log
+      properties:
+        audit_log:
+          $ref: '#/components/schemas/AuditLog'
+    CreateAuditLogRequest:
+      type: object
+      required:
+        - user_id
+        - table_name
+        - field_name
+        - prev_value
+        - new_value
+        - date_time
+      properties:
+        user_id:
+          type: string
+        table_name:
+          type: string
+        field_name:
+          type: string
+        prev_value:
+          type: string
+        new_value:
+          type: string
+        date_time:
+          type: string
+          format: date-time
+    CreateAuditLogResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+    ListAuditLogsResponse:
+      type: object
+      required:
+        - audit_logs
+      properties:
+        audit_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'

@@ -1,0 +1,182 @@
+openapi: 3.0.0
+info:
+  title: DataManger API
+  version: '1.0'
+paths:
+  /get-all/{run_id}:
+    get:
+      summary: Get all data from run
+      operationId: GetAll
+      parameters:
+        - name: run_id
+          in: path
+          description: Run identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllResponse'
+  /create:
+    post:
+      summary: Create data
+      operationId: Create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequest'
+      responses:
+        '200':
+          description: Data created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /modifie:
+    put:
+      summary: Modifie data
+      operationId: Modifie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifieRequest'
+      responses:
+        '200':
+          description: Data modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModifieResponse'
+  
+  /delete:
+    delete:
+      summary: Delete data
+      operationId: Delete
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRequest'
+      responses:
+        '200':
+          description: Data delete successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+components:
+  schemas:
+    Data:
+      type: object
+      required:
+        - id
+        - run_id
+        - content
+        - saved_at
+        - modified_at
+        - state
+      properties:
+        id:
+          type: string
+        run_id:
+          type: string
+        content:
+          type: string
+        saved_at:
+          type: string
+          format: date-time
+        modified_at:
+          type: string
+          format: date-time
+        state:
+          $ref: '#/components/schemas/DataState'
+    DataState:
+      type: string
+      enum:
+        - Created
+        - Modified
+        - Sent
+    GetAllResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Data'
+    ModifieRequest:
+      type: object
+      properties:
+        modified_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModifiedData'
+    CreateRequest:
+      type: object
+      properties:
+        create_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewData'
+    DeleteRequest:
+      type: object
+      properties:
+        remove_data_ids:
+          type: array
+          items:
+            type: string
+    ModifiedData:
+      type: object
+      required:
+        - data_id
+        - content
+      properties:
+        data_id:
+          type: string
+        content:
+          type: string
+    NewData:
+      type: object
+      required:
+        - id
+        - run_id
+        - content
+      properties:
+        id:
+          type: string
+        run_id:
+          type: string
+        content:
+          type: string
+    ModifieResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+    CreateResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+    DeleteResponse:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: boolean

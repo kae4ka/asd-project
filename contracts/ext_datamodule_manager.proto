@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package etl.ext.datamodule.manager.V1;
+
+
+import "google/protobuf/wrappers.proto";
+
+service ExtDatamoduleManager {
+    rpc CreateConnection(CreateConnectionRequest) returns (CreateConnectionResponse) {
+        option (google.api.http) = {
+          post: "/create",
+          body: "*"
+        };
+    }
+
+    rpc UpdateConnection(UpdateConnectionRequest) returns (UpdateConnectionResponse) {
+        option (google.api.http) = {
+            put: "/update",
+            body: "*"
+          };
+    }
+
+    rpc GetConnection(GetConnectionRequest) returns (GetConnectionResponse) {
+        option (google.api.http) = {
+            get: "/get",
+          };
+    }
+
+    rpc GetAllConnection(GetAllConnectionRequest) returns (GetAllConnectionResponse) {
+        option (google.api.http) = {
+            get: "/get-all",
+          };
+    }
+}
+
+message CreateConnectionRequest {
+    ExtDatamoduleConnection connection = 1;
+}
+
+message CreateConnectionResponse {
+    bool result = 1;
+}
+
+message UpdateConnectionRequest {
+    string id = 1;
+
+    oneof updatedData {
+        string name = 2;
+        string connection_string = 3;
+        string contract = 4;
+        ExtDatamoduleConnection.ConnectionType type = 5;
+    }
+}
+
+message UpdateConnectionResponse {
+    bool result = 1;
+}
+
+message GetConnectionRequest {
+    string id = 1;
+}
+
+message GetConnectionResponse {
+    bool result = 1;
+    
+    ExtDatamoduleConnection connection = 2;
+}
+
+message GetAllConnectionRequest {
+}
+
+message GetAllConnectionResponse {
+    bool result = 1;
+    
+    repeated ExtDatamoduleConnection connections = 2;
+}
+
+
+message ExtDatamoduleConnection {
+    string id = 1;
+    string name = 2;
+    string connection_string = 3;
+    string contract = 4;
+    ConnectionType type = 5;
+}
+
+enum ConnectionType {
+    GRPC = 0;
+    HTTP = 1;
+    DATABASE = 2;
+}

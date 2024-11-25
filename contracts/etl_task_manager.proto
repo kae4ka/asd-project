@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+package etl.task.manager.V1;
+
+
+import "google/protobuf/wrappers.proto";
+
+service EtlTaskManger {
+    rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {
+        option (google.api.http) = {
+          post: "/create",
+          body: "*"
+        };
+      }
+    rpc GetTask(GetRequest) returns (GetResponse) {
+        option (google.api.http) = {
+          post: "/get/{task_id}",
+          get: "*"
+        };
+    }
+    
+    rpc GetTask(GetAllRequest) returns (GetAllResponse) {
+        option (google.api.http) = {
+         get: "/get-all",
+        };
+    }
+    rpc UpdateExtractionScript(UpdateExtractionScriptRequest) returns (UpdateExtractionScriptResponse) {
+        option (google.api.http) = {
+          put: "/update/script/extraction",
+          body: "*"
+        };
+    }
+    rpc UpdateFieldRules(UpdateFieldRulesRequest) returns (UpdateFieldRulesResponse) {
+        option (google.api.http) = {
+          put: "/update/script/field_rules",
+          body: "*"
+        };
+    }
+    rpc UpdateAnonymizationRules(UpdateAnonymizationRulesRequest) returns (UpdateAnonymizationRulesResponse) {
+        option (google.api.http) = {
+          put: "/update/script/anomyziation",
+          body: "*"
+        };
+    }
+    rpc UpdateTransformationScripts(UpdateTransformationRequest) returns (UpdateTransformationResponse) {
+        option (google.api.http) = {
+          put: "/update/script/transformation",
+          body: "*"
+        };
+    }
+    rpc UpdateUploadingScript(UpdateUploadingScriptRequest) returns (UpdateUploadingScriptResponse) {
+        option (google.api.http) = {
+          put: "/update/script/uploading",
+          body: "*"
+        };
+    }
+    rpc Release(ReleaseRequest) returns (ReleaseResponse) {
+        option (google.api.http) = {
+          put: "/release",
+          body: "*"
+        };
+    }
+    rpc Start(StartRequest) returns (StartResponse) {
+        option (google.api.http) = {
+          post: "/start",
+          body: "*"
+        };
+    }
+    rpc Resume(ResumeRequest) returns (ResumeResponse) {
+        option (google.api.http) = {
+          post: "/resume",
+          body: "*"
+        };
+    }
+    rpc Pause(PauseRequest) returns (PauseResponse) {
+        option (google.api.http) = {
+          post: "/pause",
+          body: "*"
+        };
+    }
+    rpc Stop(StopRequest) returns (StopResponse) {
+        option (google.api.http) = {
+          post: "/stop",
+          body: "*"
+        };
+    }
+}
+
+message CreateTaskRequest {
+}
+
+message CreateTaskResponse {
+    bool result = 1;
+}
+
+message GetRequest {
+    string task_id = 1;
+}
+
+message GetResponse {
+    EtlTask task = 1;
+}
+
+message GetAllRequest {
+}
+
+message GetAllResponse {
+    repeated EtlTask tasks = 1;
+}
+
+message UpdateExtractionScriptRequest {
+    string script_id = 1;
+}
+
+message UpdateExtractionScriptResponse {
+    bool result = 1;
+}
+
+message UpdateFieldRulesRequest {
+    repeated string rules_to_add = 1;
+    repeated string rules_to_remove = 2;
+}
+
+message UpdateFieldRulesResponse {
+    bool result = 1;
+}
+
+message UpdateAnonymizationRulesRequest {
+    repeated string rules_to_add = 1;
+    repeated string rules_to_remove = 2;
+}
+
+message UpdateAnonymizationRulesResponse {
+    bool result = 1;
+}
+
+message UpdateTransformationScriptsRequest {
+    repeated string scripts_to_add = 1;
+    repeated string scripts_to_remove = 2;
+}
+
+message UpdateTransformationScriptsResponse {
+    bool result = 1;
+}
+
+message UpdateUploadingScriptRequest {
+    string script_id = 1;
+}
+
+message UpdateUploadingScriptResponse {
+    bool result = 1;
+}
+
+message ReleaseRequest {
+    string task_id = 1;
+}
+
+message ReleaseResponse {
+    bool result = 1;
+}
+
+
+message StartRequest {
+    string task_id = 1;
+}
+
+message StartResponse {
+    bool result = 1;
+}
+
+message ResumeRequest {
+    string task_id = 1;
+}
+
+message ResumeResponse {
+    bool result = 1;
+}
+
+message PauseRequest {
+    string task_id = 1;
+}
+
+message PauseResponse {
+    bool result = 1;
+}
+
+message StopRequest {
+    string task_id = 1;
+}
+
+message StopResponse {
+    bool result = 1;
+}
+
+message EtlTask {
+    string id = 1;
+    bool released = 2;
+    
+    string extraction_script = 3;
+    repeated string field_rules = 4;
+    repeated string anonymization_rules = 5;
+    repeated string transformation_scripts = 6;
+    string uploading_script = 7;
+
+    repeated TaskRun runs = 8;
+}
+
+message TaskRun{
+    string id = 1;
+    string etl_task_id = 2;
+    TaskRunState state = 3;
+    google.protobuf.Timestamp RunAt = 4;
+    int64 extracted_data_count = 5;
+}
+
+enum TaskRunState {
+    Running = 0;
+    Paused = 1;
+    Stopped = 3;
+}

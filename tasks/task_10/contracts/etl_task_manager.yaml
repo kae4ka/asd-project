@@ -1,0 +1,478 @@
+openapi: 3.0.0
+info:
+  title: EtlTaskManager API
+  version: '1.0'
+paths:
+  /create:
+    post:
+      summary: Create a new ETL task
+      operationId: CreateTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '201':
+          description: Task successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTaskResponse'
+  /get/{task_id}:
+    get:
+      summary: Retrieve a specific ETL task by ID
+      operationId: GetTask
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: The ID of the ETL task
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the ETL task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetResponse'
+        '404':
+          description: ETL task not found
+  /get-all:
+    get:
+      summary: Retrieve all ETL tasks
+      operationId: GetAllTasks
+      responses:
+        '200':
+          description: Successfully retrieved all ETL tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllResponse'
+  /update/script/extraction:
+    put:
+      summary: Update the extraction script of an ETL task
+      operationId: UpdateExtractionScript
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExtractionScriptRequest'
+      responses:
+        '200':
+          description: Extraction script successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateExtractionScriptResponse'
+  /update/script/field_rules:
+    put:
+      summary: Update the field rules of an ETL task
+      operationId: UpdateFieldRules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFieldRulesRequest'
+      responses:
+        '200':
+          description: Field rules successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateFieldRulesResponse'
+  /update/script/anonymization:
+    put:
+      summary: Update the anonymization rules of an ETL task
+      operationId: UpdateAnonymizationRules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAnonymizationRulesRequest'
+      responses:
+        '200':
+          description: Anonymization rules successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAnonymizationRulesResponse'
+  /update/script/transformation:
+    put:
+      summary: Update the transformation scripts of an ETL task
+      operationId: UpdateTransformationScripts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransformationScriptsRequest'
+      responses:
+        '200':
+          description: Transformation scripts successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateTransformationScriptsResponse'
+  /update/script/uploading:
+    put:
+      summary: Update the uploading script of an ETL task
+      operationId: UpdateUploadingScript
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUploadingScriptRequest'
+      responses:
+        '200':
+          description: Uploading script successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUploadingScriptResponse'
+  /release:
+    put:
+      summary: Release an ETL task
+      operationId: Release
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseRequest'
+      responses:
+        '200':
+          description: ETL task successfully released
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseResponse'
+  /start:
+    post:
+      summary: Start an ETL task
+      operationId: Start
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRequest'
+      responses:
+        '200':
+          description: ETL task successfully started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartResponse'
+  /resume:
+    post:
+      summary: Resume a paused ETL task
+      operationId: Resume
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeRequest'
+      responses:
+        '200':
+          description: ETL task successfully resumed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeResponse'
+  /pause:
+    post:
+      summary: Pause a running ETL task
+      operationId: Pause
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PauseRequest'
+      responses:
+        '200':
+          description: ETL task successfully paused
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PauseResponse'
+  /stop:
+    post:
+      summary: Stop a running ETL task
+      operationId: Stop
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopRequest'
+      responses:
+        '200':
+          description: ETL task successfully stopped
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StopResponse'
+components:
+  schemas:
+    CreateTaskRequest:
+      type: object
+      description: Request to create a new ETL task
+      properties: {}
+    CreateTaskResponse:
+      type: object
+      description: Response after creating an ETL task
+      properties:
+        result:
+          type: boolean
+    GetRequest:
+      type: object
+      required:
+        - task_id
+      properties:
+        task_id:
+          type: string
+          description: The ID of the ETL task
+    GetResponse:
+      type: object
+      required:
+        - task
+      properties:
+        task:
+          $ref: '#/components/schemas/EtlTask'
+    GetAllResponse:
+      type: object
+      required:
+        - tasks
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/EtlTask'
+    UpdateExtractionScriptRequest:
+      type: object
+      required:
+        - script_id
+      properties:
+        script_id:
+          type: string
+          description: The ID of the new extraction script
+    UpdateExtractionScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    UpdateFieldRulesRequest:
+      type: object
+      properties:
+        rules_to_add:
+          type: array
+          items:
+            type: string
+          description: List of field rules to add
+        rules_to_remove:
+          type: array
+          items:
+            type: string
+          description: List of field rules to remove
+    UpdateFieldRulesResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    UpdateAnonymizationRulesRequest:
+      type: object
+      properties:
+        rules_to_add:
+          type: array
+          items:
+            type: string
+          description: List of anonymization rules to add
+        rules_to_remove:
+          type: array
+          items:
+            type: string
+          description: List of anonymization rules to remove
+    UpdateAnonymizationRulesResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    UpdateTransformationScriptsRequest:
+      type: object
+      properties:
+        scripts_to_add:
+          type: array
+          items:
+            type: string
+          description: List of transformation scripts to add
+        scripts_to_remove:
+          type: array
+          items:
+            type: string
+          description: List of transformation scripts to remove
+    UpdateTransformationScriptsResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    UpdateUploadingScriptRequest:
+      type: object
+      required:
+        - script_id
+      properties:
+        script_id:
+          type: string
+          description: The ID of the new uploading script
+    UpdateUploadingScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    ReleaseRequest:
+      type: object
+      required:
+        - task_id
+      properties:
+        task_id:
+          type: string
+          description: The ID of the ETL task to release
+    ReleaseResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    StartRequest:
+      type: object
+      required:
+        - task_id
+      properties:
+        task_id:
+          type: string
+          description: The ID of the ETL task to start
+    StartResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    ResumeRequest:
+      type: object
+      required:
+        - task_id
+      properties:
+        task_id:
+          type: string
+          description: The ID of the ETL task to resume
+    ResumeResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    PauseRequest:
+      type: object
+      required:
+        - task_id
+      properties:
+        task_id:
+          type: string
+          description: The ID of the ETL task to pause
+    PauseResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    StopRequest:
+      type: object
+      required:
+        - task_id
+      properties:
+        task_id:
+          type: string
+          description: The ID of the ETL task to stop
+    StopResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    EtlTask:
+      type: object
+      required:
+        - id
+        - released
+        - extraction_script
+        - field_rules
+        - anonymization_rules
+        - transformation_scripts
+        - uploading_script
+        - runs
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the ETL task
+        released:
+          type: boolean
+          description: Indicates if the task is released
+        extraction_script:
+          type: string
+          description: The extraction script associated with the task
+        field_rules:
+          type: array
+          items:
+            type: string
+          description: List of field rules
+        anonymization_rules:
+          type: array
+          items:
+            type: string
+          description: List of anonymization rules
+        transformation_scripts:
+          type: array
+          items:
+            type: string
+          description: List of transformation scripts
+        uploading_script:
+          type: string
+          description: The uploading script associated with the task
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskRun'
+          description: List of task runs
+    TaskRun:
+      type: object
+      required:
+        - id
+        - etl_task_id
+        - state
+        - run_at
+        - extracted_data_count
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the task run
+        etl_task_id:
+          type: string
+          description: The ID of the associated ETL task
+        state:
+          type: string
+          enum:
+            - Running
+            - Paused
+            - Stopped
+          description: The current state of the task run
+        run_at:
+          type: string
+          format: date-time
+          description: Timestamp when the task run started
+        extracted_data_count:
+          type: integer
+          format: int64
+          description: Amount of data extracted during the run

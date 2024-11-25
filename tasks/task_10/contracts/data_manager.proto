@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package etl.data.manager.V1;
+
+import "google/protobuf/wrappers.proto";
+
+service DataManger {
+    rpc GetAll(GetAllRequest) returns (GetAllResponse) {
+        option (google.api.http) = {
+          get: "/get-all",
+        };
+      }
+    rpc Modifie(ModifieRequest) returns (ModifieResponse) {
+        option (google.api.http) = {
+          post: "/modifie",
+          body: "*"
+        };
+      }
+}
+
+message GetAllRequest {
+    string run_id = 1;
+}
+
+message GetAllResponse {
+    repeated Data data = 1;
+}
+
+message ModifieRequest {
+    repeated ModifiedData modified_data = 1;
+    repeated NewData create_data = 2;
+    repeated string remove_data_ids = 3;
+}
+
+message ModifiedData {
+    string data_id = 1;
+    string content = 2;
+}
+
+message NewData {
+    string id = 1;
+    string run_id = 2;
+    string content = 3;
+}
+
+message ModifieReponse {
+    bool result = 1;
+}
+
+message Data {
+    string id = 1;
+    string run_id = 2;
+    string content = 3;
+    google.protobuf.Timestamp saved_at = 4;
+    google.protobuf.Timestamp modified_at = 5;
+    DataState state = 6;
+}
+
+enum DataState {
+    Created = 0;
+    Modified = 1;
+    Sent = 2;
+}

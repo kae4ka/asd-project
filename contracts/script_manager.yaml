@@ -1,0 +1,277 @@
+openapi: 3.0.0
+info:
+  title: ScriptManager API
+  version: '1.0'
+paths:
+  /create:
+    post:
+      summary: Create a new script
+      operationId: CreateScript
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScriptRequest'
+      responses:
+        '201':
+          description: Script successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateScriptResponse'
+  /update:
+    put:
+      summary: Update an existing script
+      operationId: UpdateScript
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScriptRequest'
+      responses:
+        '200':
+          description: Script successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateScriptResponse'
+  /release:
+    put:
+      summary: Release a script
+      operationId: ReleaseScript
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseScriptRequest'
+      responses:
+        '200':
+          description: Script successfully released
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseScriptResponse'
+  /script:
+    get:
+      summary: Get a script by ID
+      operationId: GetScript
+      parameters:
+        - name: script_id
+          in: query
+          description: Script identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the script
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetScriptResponse'
+        '404':
+          description: Script not found
+  /scripts:
+    get:
+      summary: Get all scripts
+      operationId: GetAllScript
+      parameters:
+        - name: etl_task_id
+          in: query
+          description: ETL task identifier
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved all scripts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllScriptResponse'
+components:
+  schemas:
+    CreateScriptRequest:
+      type: object
+      required:
+        - script
+      properties:
+        script:
+          $ref: '#/components/schemas/Script'
+    CreateScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    UpdateScriptRequest:
+      type: object
+      required:
+        - script_id
+      properties:
+        script_id:
+          type: string
+        # The following properties are mutually exclusive; only one should be provided.
+        script_type:
+          $ref: '#/components/schemas/ScriptType'
+        extractor:
+          $ref: '#/components/schemas/Empty'
+        field_rule:
+          $ref: '#/components/schemas/FieldRule'
+        anonymization_rule:
+          $ref: '#/components/schemas/AnonymizationRule'
+        transformer:
+          $ref: '#/components/schemas/TransformationScript'
+        uploader:
+          $ref: '#/components/schemas/Empty'
+        fields_to_add:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        fields_to_remove:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+    UpdateScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    ReleaseScriptRequest:
+      type: object
+      required:
+        - script_id
+      properties:
+        script_id:
+          type: string
+    ReleaseScriptResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    GetScriptRequest:
+      type: object
+      required:
+        - script_id
+      properties:
+        script_id:
+          type: string
+    GetScriptResponse:
+      type: object
+      properties:
+        script:
+          $ref: '#/components/schemas/Script'
+    GetAllScriptRequest:
+      type: object
+      properties:
+        etl_task_id:
+          type: string
+    GetAllScriptResponse:
+      type: object
+      properties:
+        scripts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Script'
+    Script:
+      type: object
+      required:
+        - id
+        - task_id
+        - fields
+        - released
+      properties:
+        id:
+          type: string
+        task_id:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        released:
+          type: boolean
+        # The following properties are mutually exclusive; only one should be provided.
+        extractor:
+          $ref: '#/components/schemas/Empty'
+        field_rule:
+          $ref: '#/components/schemas/FieldRule'
+        anonymization_rule:
+          $ref: '#/components/schemas/AnonymizationRule'
+        transformer:
+          $ref: '#/components/schemas/TransformationScript'
+        uploader:
+          $ref: '#/components/schemas/Empty'
+    FieldRule:
+      type: object
+      properties:
+        default_value:
+          type: string
+        min_value:
+          type: string
+        max_value:
+          type: string
+        field_type:
+          $ref: '#/components/schemas/FieldType'
+        type:
+          $ref: '#/components/schemas/FieldRuleType'
+    FieldType:
+      type: string
+      enum:
+        - Integer
+        - String
+        - Double
+    FieldRuleType:
+      type: string
+      enum:
+        - FillEmpty
+        - IgnoreEmpty
+        - RemoveEmpty
+        - FillOutOfRange
+        - IgnoreOutOfRange
+        - RemoveOutOfRange
+    ScriptType:
+      type: string
+      enum:
+        - Extractor
+        - FieldRule
+        - AnonymizationRule
+        - Transformer
+        - Uploader
+    AnonymizationRule:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AnonymizationRuleType'
+    AnonymizationRuleType:
+      type: string
+      enum:
+        - Generalization
+        - Suppression
+        - Anatomization
+        - Permutation
+        - Perturbation
+    TransformationScript:
+      type: object
+      properties:
+        transformation_script:
+          type: string
+        type:
+          $ref: '#/components/schemas/TransformationType'
+    TransformationType:
+      type: string
+      enum:
+        - Merge
+        - Update
+    Field:
+      type: object
+      properties:
+        ext_datamodule_id:
+          type: string
+        field_name:
+          type: string
+    Empty:
+      type: object
+      description: An empty object (equivalent to google.protobuf.Empty)

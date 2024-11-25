@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: ExtDatamoduleManager API
+  version: '1.0'
+paths:
+  /create:
+    post:
+      summary: Create a new connection
+      operationId: CreateConnection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConnectionRequest'
+      responses:
+        '200':
+          description: Connection successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateConnectionResponse'
+  /update:
+    put:
+      summary: Update an existing connection
+      operationId: UpdateConnection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConnectionRequest'
+      responses:
+        '200':
+          description: Connection successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateConnectionResponse'
+  /get:
+    get:
+      summary: Retrieve a connection by ID
+      operationId: GetConnection
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Connection identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Connection successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConnectionResponse'
+        '404':
+          description: Connection not found
+  /get-all:
+    get:
+      summary: Retrieve all connections
+      operationId: GetAllConnection
+      responses:
+        '200':
+          description: Successfully retrieved all connections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllConnectionResponse'
+components:
+  schemas:
+    CreateConnectionRequest:
+      type: object
+      required:
+        - connection
+      properties:
+        connection:
+          $ref: '#/components/schemas/ExtDatamoduleConnection'
+    CreateConnectionResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    UpdateConnectionRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        connection_string:
+          type: string
+        contract:
+          type: string
+        type:
+          $ref: '#/components/schemas/ConnectionType'
+    UpdateConnectionResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    GetConnectionResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+        connection:
+          $ref: '#/components/schemas/ExtDatamoduleConnection'
+    GetAllConnectionResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtDatamoduleConnection'
+    ExtDatamoduleConnection:
+      type: object
+      required:
+        - id
+        - name
+        - connection_string
+        - contract
+        - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        connection_string:
+          type: string
+        contract:
+          type: string
+        type:
+          $ref: '#/components/schemas/ConnectionType'
+    ConnectionType:
+      type: string
+      enum:
+        - GRPC
+        - HTTP
+        - DATABASE

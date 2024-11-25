@@ -1,0 +1,234 @@
+openapi: 3.0.0
+info:
+  title: UserManager API
+  version: '1.0'
+paths:
+  /user/{id}:
+    get:
+      summary: Get user by ID
+      operationId: GetUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResponse'
+        '404':
+          description: User not found
+  /user/add-access:
+    post:
+      summary: Add access to a user
+      operationId: AddAccess
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddAccessRequest'
+      responses:
+        '200':
+          description: Access successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddAccessResponse'
+  /user/remove-access:
+    post:
+      summary: Remove access from a user
+      operationId: RemoveAccess
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveAccessRequest'
+      responses:
+        '200':
+          description: Access successfully removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveAccessResponse'
+  /user/add-role:
+    post:
+      summary: Add role to a user
+      operationId: AddRole
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRoleRequest'
+      responses:
+        '200':
+          description: Role successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddRoleResponse'
+  /user/remove-role:
+    post:
+      summary: Remove role from a user
+      operationId: RemoveRole
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveRoleRequest'
+      responses:
+        '200':
+          description: Role successfully removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveRoleResponse'
+  /access-request/approve:
+    post:
+      summary: Approve an access request
+      operationId: ApproveAccessRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveAccessRequest'
+      responses:
+        '200':
+          description: Access request successfully approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApproveAccessResponse'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRole'
+        ext_datamodule_accesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtDatamoduleAccess'
+    ExtDatamoduleAccess:
+      type: object
+      properties:
+        id:
+          type: string
+        ext_datamodule_id:
+          type: string
+        access_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtDatamoduleAccessType'
+    ExtDatamoduleAccessType:
+      type: string
+      enum:
+        - READ
+        - WRITE
+        - OWNER
+    UserRole:
+      type: string
+      enum:
+        - EDIT_TASK
+        - MANAGE_DATA
+        - CREATE_EXT_DATAMODULE
+        - PROCESS_ETL_TASK
+    GetUserResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    AddAccessRequest:
+      type: object
+      required:
+        - user_id
+        - access
+      properties:
+        user_id:
+          type: string
+        access:
+          $ref: '#/components/schemas/ExtDatamoduleAccess'
+    AddAccessResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    RemoveAccessRequest:
+      type: object
+      required:
+        - user_id
+        - access
+      properties:
+        user_id:
+          type: string
+        access:
+          $ref: '#/components/schemas/ExtDatamoduleAccess'
+    RemoveAccessResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    AddRoleRequest:
+      type: object
+      required:
+        - user_id
+        - role
+      properties:
+        user_id:
+          type: string
+        role:
+          $ref: '#/components/schemas/UserRole'
+    AddRoleResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    RemoveRoleRequest:
+      type: object
+      required:
+        - user_id
+        - role
+      properties:
+        user_id:
+          type: string
+        role:
+          $ref: '#/components/schemas/UserRole'
+    RemoveRoleResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+    ApproveAccessRequest:
+      type: object
+      required:
+        - access_request_id
+        - owner_user_id
+        - state
+      properties:
+        access_request_id:
+          type: string
+        owner_user_id:
+          type: string
+        state:
+          type: boolean
+    ApproveAccessResponse:
+      type: object
+      properties:
+        result:
+          type: boolean

@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+package etl.script.manager.V1;
+
+
+import "google/protobuf/wrappers.proto";
+
+service ScriptManager {
+    rpc CreateScript(CreateScriptRequest) returns (CreateScriptResponse) {
+        option (google.api.http) = {
+          post: "/create",
+          body: "*"
+        };
+      }
+    rpc UpdateScript(UpdateScriptRequest) returns (UpdateScriptResponse) {
+        option (google.api.http) = {
+          put: "/update",
+          body: "*"
+        };
+      }
+    rpc ReleaseScript(ReleaseScriptRequest) returns (ReleaseScriptResponse) {
+        option (google.api.http) = {
+          put: "/release",
+          body: "*"
+        };
+      }
+    rpc GetScript(GetScriptRequest) returns (GetScriptResponse) {
+        option (google.api.http) = {
+          get: "/script"
+        };
+      }
+    rpc GetAllScript(GetAllScriptRequest) returns (GetAllScriptResponse) {
+        option (google.api.http) = {
+          get: "/scripts"
+        };
+      }
+}
+
+message CreateScriptRequest {
+    Script script = 1;
+}
+
+message CreateScriptResponse {
+    bool result = 1;
+}
+
+message UpdateScriptRequest {
+    string script_id = 1;
+
+    oneof script {
+        google.protobuf.Empty extractor = 2;
+        FieldRule field_rule = 3;
+        AnonymizationRule anonymization_rule = 4;
+        TransformationScript transformer = 5;
+        google.protobuf.Empty uploader = 6;
+    }
+
+    repeated Field fields_to_add = 7;
+    repeated Field fields_to_remove = 8;
+}
+
+message UpdateScriptResponse {
+    bool result = 1;
+}
+
+message ReleaseScriptRequest {
+    string script_id = 1;
+}
+
+message ReleaseScriptResponse {
+    bool result = 1;
+}
+
+message GetScriptRequest {
+    string script_id = 1;
+}
+
+message GetScriptResponse {
+    Script script = 1;
+}
+
+message GetAllScriptRequest {
+    string etl_task_id = 1;
+}
+
+message GetAllScriptResponse {
+    repeated Script scripts = 1;
+}
+
+
+message Script {
+    string id = 1;
+    string task_id = 2;
+    repeated Field fields = 3;
+    bool released = 4;
+
+    oneof script {
+        google.protobuf.Empty extractor = 5;
+        FieldRule field_rule = 6;
+        AnonymizationRule anonymization_rule = 7;
+        TransformationScript transformer = 8;
+        google.protobuf.Empty uploader = 9;
+    }
+}
+
+message FieldRule {
+    string default_value = 1;
+    string min_value = 2;
+    string max_value = 3;
+    FieldType field_type = 4;
+    FieldRuleType type = 5;
+}
+
+enum FieldType {
+    Integer = 0;
+    String = 1;
+    Double = 2;
+}
+
+enum FieldRuleType {
+    FillEmpty = 0;
+    IgnoreEmpty = 1;
+    RemoveEmpty = 2;
+    FillOutOfRange = 3;
+    IgnoreOutOfRange = 4;
+    RemoveOutOfRange = 5;
+}
+
+message AnonymizationRule {
+    AnonymizationRuleType type = 1;
+}
+
+enum AnonymizationRuleType {
+    Generalization = 0;
+    Suppression = 1;
+    Anatomization = 2;
+    Permutation = 3;
+    Pertubation = 3;
+}
+
+message TransformationScript {
+    google.protobuf.StringValue transformation_script = 1;
+    TransformationType type = 2;
+}
+
+enum TransformationType {
+    Merge = 0;
+    Update = 1;
+}
+
+message Field {
+    string ext_datamodule_id = 1;
+    string field_name = 2;
+}
+

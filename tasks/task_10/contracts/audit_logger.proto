@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package etl.audit.logger.V1;
+
+import "google/protobuf/timestamp.proto";
+
+service AuditLogger {
+    rpc GetAuditLog(GetAuditLogRequest) returns (GetAuditLogResponse) {
+        option (google.api.http) = {
+          get: "/audit-log/{id}"
+        };
+    }
+
+    rpc CreateAuditLog(CreateAuditLogRequest) returns (CreateAuditLogResponse) {
+        option (google.api.http) = {
+          post: "/audit-log",
+          body: "*"
+        };
+    }
+
+    rpc ListAuditLogs(ListAuditLogsRequest) returns (ListAuditLogsResponse) {
+        option (google.api.http) = {
+          get: "/audit-logs"
+        };
+    }
+}
+
+message GetAuditLogRequest {
+    string id = 1;
+}
+
+message GetAuditLogResponse {
+    AuditLog audit_log = 1;
+}
+
+message CreateAuditLogRequest {
+    string user_id = 1;
+    string table_name = 2;   
+    string field_name = 3;   
+    string prev_value = 4;   
+    string new_value = 5;    
+    google.protobuf.Timestamp date_time = 6; 
+}
+
+message CreateAuditLogResponse {
+    string id = 1; 
+}
+
+message ListAuditLogsRequest {
+    string user_id = 1;        
+    string table_name = 2;     
+    google.protobuf.Timestamp start_date = 3; 
+    google.protobuf.Timestamp end_date = 4;   
+}
+
+message ListAuditLogsResponse {
+    repeated AuditLog audit_logs = 1;
+}
+
+message AuditLog {
+    string id = 1;      
+    string user_id = 2; 
+    string table_name = 3; 
+    string field_name = 4; 
+    string prev_value = 5; 
+    string new_value = 6;  
+    google.protobuf.Timestamp date_time = 7; 
+}

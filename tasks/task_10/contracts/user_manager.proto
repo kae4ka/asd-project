@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package etl.user.manager.V1;
+
+import "google/protobuf/wrappers.proto";
+
+service UserManager {
+    rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+        option (google.api.http) = {
+          get: "/user/{id}"
+        };
+    }
+
+    rpc AddAccess(AddAccessRequest) returns (AddAccessResponse) {
+        option (google.api.http) = {
+          post: "/user/add-access",
+          body: "*"
+        };
+    }
+
+    rpc RemoveAccess(RemoveAccessRequest) returns (RemoveAccessResponse) {
+        option (google.api.http) = {
+          post: "/user/remove-access",
+          body: "*"
+        };
+    }
+
+    rpc AddRole(AddRoleRequest) returns (AddRoleResponse) {
+        option (google.api.http) = {
+          post: "/user/add-role",
+          body: "*"
+        };
+    }
+
+    rpc RemoveRole(RemoveRoleRequest) returns (RemoveRoleResponse) {
+        option (google.api.http) = {
+          post: "/user/remove-role",
+          body: "*"
+        };
+    }
+
+    rpc ApproveAccessRequest(ApproveAccessRequest) returns (ApproveAccessResponse) {
+        option (google.api.http) = {
+          post: "/access-request/approve",
+          body: "*"
+        };
+    }
+}
+
+message GetUserRequest {
+    string id = 1;
+}
+
+message GetUserResponse {
+    User user = 1;
+}
+
+message AddAccessRequest {
+    string user_id = 1;
+    ExtDatamoduleAccess access = 2;
+}
+
+message AddAccessResponse {
+    bool result = 1;
+}
+
+message RemoveAccessRequest {
+    string user_id = 1;
+    ExtDatamoduleAccess access = 2;
+}
+
+message RemoveAccessResponse {
+    bool result = 1;
+}
+
+message AddRoleRequest {
+    string user_id = 1;
+    UserRole role = 2;
+}
+
+message AddRoleResponse {
+    bool result = 1;
+}
+
+message RemoveRoleRequest {
+    string user_id = 1;
+    UserRole role = 2;
+}
+
+message RemoveRoleResponse {
+    bool result = 1;
+}
+
+message ApproveAccessRequest {
+    string access_request_id = 1;
+    string owner_user_id = 2;
+    bool state = 3;
+}
+
+message ApproveAccessResponse {
+    bool result = 1;
+}
+
+message User {
+    string id = 1;
+    string name = 2;
+    repeated UserRole roles = 3;
+    repeated ExtDatamoduleAccess ext_datamodule_accesses = 4;
+}
+
+message ExtDatamoduleAccess {
+    string id = 1;
+    string ext_datamodule_id = 2;
+    repeated ExtDatamoduleAccessType access_types = 3;
+}
+
+enum ExtDatamoduleAccessType {
+    READ = 0;
+    WRITE = 1;
+    OWNER = 2;
+}
+
+enum UserRole {
+    EDIT_TASK = 0;
+    MANAGE_DATA = 1;
+    CREATE_EXT_DATAMODULE = 2;
+    PROCESS_ETL_TASK = 3;
+}
