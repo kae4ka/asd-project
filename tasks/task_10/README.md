@@ -486,6 +486,10 @@ https://tiny.cc/asd-template-apidesign
    1. System displays action details, including timestamp, actor, and changes.
    1. *(GetAuditLog - AuditLogger)*
 
+## Components
+
+![](diagrams/components-1.png)
+
 ## Solution stack
 
 ### Implementation
