@@ -1,0 +1,2 @@
+## Slides : [presentation](https://docs.google.com/presentation/d/1AV5ei2ybuF9XTYtFy0iZEWcl2qJD1gzTa7vwAJ4z38k/edit?usp=sharing)
+## Videos : [videos](https://drive.google.com/file/d/1wzwayTqyG40pOdBJkw3-e8niZ5YDdmDr/view?usp=sharing)
