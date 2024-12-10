@@ -23,8 +23,25 @@ paths:
                 $ref: '#/components/schemas/GetUserResponse'
         '404':
           description: User not found
-  /user/add-access:
+  /user:
     post:
+      summary: Create new user
+      operationId: CreateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+  /user/add-access:
+    put:
       summary: Add access to a user
       operationId: AddAccess
       requestBody:
@@ -41,7 +58,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AddAccessResponse'
   /user/remove-access:
-    post:
+    put:
       summary: Remove access from a user
       operationId: RemoveAccess
       requestBody:
@@ -58,7 +75,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RemoveAccessResponse'
   /user/add-role:
-    post:
+    put:
       summary: Add role to a user
       operationId: AddRole
       requestBody:
@@ -75,7 +92,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AddRoleResponse'
   /user/remove-role:
-    post:
+    put:
       summary: Remove role from a user
       operationId: RemoveRole
       requestBody:
@@ -92,7 +109,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RemoveRoleResponse'
   /access-request/approve:
-    post:
+    put:
       summary: Approve an access request
       operationId: ApproveAccessRequest
       requestBody:
@@ -225,7 +242,17 @@ components:
           type: string
         owner_user_id:
           type: string
-        state:
+    CreateUserRequest:
+      type: object
+      required:
+        - user_id
+      properties:
+        user_id:
+          type: string
+    CreateUserResponse:
+      type: object
+      properties:
+        result:
           type: boolean
     ApproveAccessResponse:
       type: object
