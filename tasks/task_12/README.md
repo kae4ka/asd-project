@@ -140,16 +140,16 @@ Encapsulation and Flexibility of Object Creation, Testability
 
 ### BRIDGE PATTERN
 
-![](diagrams/factory-pattern.png)
+![](diagrams/bridge-pattern.png)
 
 #### Problem
 
-How to dynamically create and configure ETL task scripts?
+How to separate ETL processing logic from the data source (e.g., SQL, HTTP, gRPC)
 
 #### Solution
 
-Use a factory to create specific ETL task scripts dynamically based on input parameters.
+Use the bridge pattern to separate the abstraction from its implementation (data source)
 
 #### Benefits
 
-Encapsulation and Flexibility of Object Creation, Testability
+Scalability and Flexibility, Reusability

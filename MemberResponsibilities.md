@@ -1,0 +1,8 @@
+| Zhulin Artem (tg - @TVI_02)                            | Tyukavkina Ekaterina (tg - @enfoeke)      | Nguyen Huy (tg - @ndh11)                          | Kuzmin Maxim (tg - @thechtulhoo) |
+|--------------------------------------------------------|-------------------------------------------|---------------------------------------------------|----------------------------------|
+| Github repo management                                 | Aggregate & Event Storming Ext-Datamodule | Aggregate & Event Storming Audit Logs, User       | Aggregate & Event Storming Data  |
+| Code generation & Deployment                           | ExtDatamodule manager services contracts  | Audit manager and user manager services contracts | Data manager services contracts  |
+| Aggregate & Event Storming ETL-Task, Processing Script | Etl Task Manager physical DB              | Audit Manager & Data manager physical DB          | Scripts Manager physical DB      |
+| Etl task manager and script manager services contracts | Architectural design pattern - SOC        | Design Pattern - Bridge, Chain of Responsibility  | Design pattern Repository        |
+| ExtDatamodule Manager & User manager physical DB       | Design pattern - Factory                  | Architectural design pattern - Api event driven   |                                  |
+| Architectural design pattern - DDD                     |                                           |                                                   |                                  |

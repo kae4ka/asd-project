@@ -2,7 +2,7 @@
 
 > ETL service that helps to deliver data from corporate systems to MLOps framework.
 
-## Use cases
+## Use-cases
 
 ![](diagrams/use-cases.png)
 
